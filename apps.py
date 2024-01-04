@@ -54,24 +54,33 @@ if __name__ == "__main__":
     train_y = train[["quality"]]
     test_y = test[["quality"]]
 
-    alpha = float(sys.argv[1]) if len(sys.argv) > 1 else 0.5
-    l1_ratio = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5
+
+    import argparse
+    parser = argparse.ArgumentParser()
+    # Add an argument
+    parser.add_argument('--alpha', type=float)
+    parser.add_argument('--l1_ratio', type=float)
+    # Parse the argument
+    args = parser.parse_args()
+    print(args.alpha, args.l1_ratio)
+    # alpha = float(sys.argv[1]) if len(sys.argv) > 1 else 0.5
+    # l1_ratio = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5
 
     with mlflow.start_run():
-        lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=42)
+        lr = ElasticNet(alpha=args.alpha, l1_ratio=args.l1_ratio, random_state=42)
         lr.fit(train_x, train_y)
 
         predicted_qualities = lr.predict(test_x)
 
         (rmse, mae, r2) = eval_metrics(test_y, predicted_qualities)
 
-        print("Elasticnet model (alpha={:f}, l1_ratio={:f}):".format(alpha, l1_ratio))
+        print("Elasticnet model (alpha={:f}, l1_ratio={:f}):".format(args.alpha, args.l1_ratio))
         print("  RMSE: %s" % rmse)
         print("  MAE: %s" % mae)
         print("  R2: %s" % r2)
 
-        mlflow.log_param("alpha", alpha)
-        mlflow.log_param("l1_ratio", l1_ratio)
+        mlflow.log_param("alpha", args.alpha)
+        mlflow.log_param("l1_ratio", args.l1_ratio)
         mlflow.log_metric("rmse", rmse)
         mlflow.log_metric("r2", r2)
         mlflow.log_metric("mae", mae)
@@ -83,8 +92,8 @@ if __name__ == "__main__":
 
     
         mlflow_tracking_uri="https://dagshub.com/nsd8888/mlops-mlflow.mlflow"
-        MLFLOW_TRACKING_USERNAME="nsd8888"
-        MLFLOW_TRACKING_PASSWORD="4ba6357cf461a8fb63f8bd0a797cf96be9d75932"
+        # MLFLOW_TRACKING_USERNAME="nsd8888"
+        # MLFLOW_TRACKING_PASSWORD="4ba6357cf461a8fb63f8bd0a797cf96be9d75932"
 
         mlflow.set_tracking_uri(mlflow_tracking_uri)
 

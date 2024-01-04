@@ -82,11 +82,11 @@ if __name__ == "__main__":
         ## For Remote server only(DAGShub)
 
     
-        MLFLOW_TRACKING_URI="https://dagshub.com/nsd8888/mlops-mlflow.mlflow"
+        mlflow_tracking_uri="https://dagshub.com/nsd8888/mlops-mlflow.mlflow"
         MLFLOW_TRACKING_USERNAME="nsd8888"
         MLFLOW_TRACKING_PASSWORD="4ba6357cf461a8fb63f8bd0a797cf96be9d75932"
 
-        mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+        mlflow.set_tracking_uri(mlflow_tracking_uri)
 
 
 

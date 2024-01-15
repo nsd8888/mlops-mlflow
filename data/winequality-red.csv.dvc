@@ -1,0 +1,6 @@
+outs:
+- md5: b0dbdd302a99bed626060072227d738c
+  size: 98824
+  isexec: true
+  hash: md5
+  path: winequality-red.csv

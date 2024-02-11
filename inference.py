@@ -6,11 +6,17 @@
 # predict: uses the model to generate a prediction for a local CSV or JSON file. Note that this method only supports DataFrame input.
 
 
+import pickle
 import requests
 
+with open("Std.pkl", "rb") as f:
+        std = pickle.load(f)
+
+
+
 inference_request = {
-        "dataframe_records": [[7.4,0.7,0,1.9,0.076,11,34,0.9978,3.51,0.56,9.4]]
+        "dataframe_records": [[23,"F","HIGH","HIGH",25.355]]
 }
-endpoint = "http://localhost:1234/invocations"
+endpoint = "http://localhost:5000/predict"
 response = requests.post(endpoint, json=inference_request)
 print(response.text)

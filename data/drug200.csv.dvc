@@ -1,0 +1,5 @@
+outs:
+- md5: 40b0b6855f5040824e2db92878213077
+  size: 6029
+  hash: md5
+  path: drug200.csv
